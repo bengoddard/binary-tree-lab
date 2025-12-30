@@ -6,10 +6,18 @@ class TreeNode:
         self.left: Optional['TreeNode'] = None
         self.right: Optional['TreeNode'] = None
 
-# TODO: Implement the max_depth function
 def max_depth(root: Optional[TreeNode]) -> int:
-    pass
+    if root is None:
+        return 0
+    left_height = max_depth(root.left)
+    right_height = max_depth(root.right)
 
-# TODO: Implement the lowest_common_ancestor function
+    return max(left_height, right_height) + 1
+
 def lowest_common_ancestor(root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
-    pass
+    current_val = root.val
+    if p.val < current_val and q.val < current_val:
+        return lowest_common_ancestor(root.left, p, q)
+    if p.val > current_val and q.val > current_val:
+        return lowest_common_ancestor(root.right, p, q)
+    return root
